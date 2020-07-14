@@ -1,0 +1,18 @@
+
+$background-dark: darkblue;
+$background-light: lightgray;
+$font-color:floralwhite;
+
+
+
+.modal-header{
+    color: $font-color;
+    background-color: $background-dark;
+    button{
+        color: $background-light;
+    }
+}
+
+.modal-body{
+    background-color: $background-light;
+}

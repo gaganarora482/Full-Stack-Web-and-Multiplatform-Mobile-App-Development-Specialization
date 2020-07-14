@@ -66,3 +66,13 @@ body{
     bottom: 0px;
     z-index: 1;
 }
+
+.modal-header {
+    padding:9px 15px;
+    background-color: #4000ff;
+    color: white;
+     }
+    
+.modal-content {
+    background-color: lightgray;
+}
