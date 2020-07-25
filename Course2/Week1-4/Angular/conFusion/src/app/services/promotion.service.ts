@@ -11,21 +11,22 @@ export class PromotionService {
 
 
   getPromotions(): Promise<Promotion[]> {
-    return Promise.resolve(PROMOTIONS);
+    return new Promise(resolve => {
+      setTimeout(() => resolve(PROMOTIONS), 2000);
+    });
   }
 
   getPromotion(id: string): Promise<Promotion> {
-    return Promise.resolve(PROMOTIONS.filter((prom) => (prom.id === id))[0]);
+    return new Promise(resolve => {
+      setTimeout(() => resolve((PROMOTIONS.filter((prom) => (prom.id === id))[0])),2000)
+    });
     /*return Promise.resolve(DISHES.filter((dish) => (dish.id === id))[0]);*/
- 
   }
 
   getFeaturedPromotion(): Promise<Promotion> {
-    return Promise.resolve(PROMOTIONS.filter((prom) => prom.featured)[0]);
+    return new Promise(resolve => {
+      setTimeout(() => resolve(PROMOTIONS.filter((prom) => prom.featured)[0]),2000)
+    });
   }
-
-
-
-
-
+  
 }
