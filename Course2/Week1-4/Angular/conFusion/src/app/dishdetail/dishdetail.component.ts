@@ -23,7 +23,7 @@ export class DishdetailComponent implements OnInit {
     /*this.dish = this.dishservice.getDish(id);*/
 
     this.dishservice.getDish(id)
-    .then(dish => this.dish = dish);
+    .subscribe(dish => this.dish = dish);
   
   }
 
