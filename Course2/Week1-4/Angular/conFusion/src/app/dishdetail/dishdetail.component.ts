@@ -114,7 +114,7 @@ export class DishdetailComponent implements OnInit {
       {
         author: this.commentForm.get('author').value,  
         comment: this.commentForm.get('comment').value ,
-        rating: 5,
+        rating: this.commentForm.get('rating').value,
         date: date.toISOString()
       }
     );
