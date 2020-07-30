@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { DishService } from './services/dish.service';
 import { PromotionService} from './services/promotion.service'
 import { LeaderService} from './services/leader.service'
+import {ProcessHTTPMsgService } from './services/process-httpmsg.service'
  
 import 'hammerjs';
 import { MenuComponent } from './menu/menu.component';
@@ -77,6 +78,7 @@ import { baseURL } from './shared/baseurl'
   providers: [DishService,
               PromotionService,
               LeaderService,
+              ProcessHTTPMsgService,
               {provide: 'BaseURL', useValue: baseURL}
               ],
   bootstrap: [AppComponent]
