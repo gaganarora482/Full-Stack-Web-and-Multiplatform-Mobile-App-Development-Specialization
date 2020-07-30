@@ -16,6 +16,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class DishdetailComponent implements OnInit {
 
   dish: Dish;
+  dishcopy: Dish;
   dishIds: string[];
   prev: string;
   next: string;
@@ -63,7 +64,7 @@ export class DishdetailComponent implements OnInit {
 
     this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
     this.route.params.pipe(switchMap((params: Params) => this.dishservice.getDish(params['id'])))
-    .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); }
+    .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); }
     ,errmess => this.errMess = <any>errmess);
   }
 
@@ -114,14 +115,19 @@ export class DishdetailComponent implements OnInit {
     this.comment = this.commentForm.value;
     console.log(this.comment);
     const date = new Date();
-    this.dish.comments.push(
-      {
-        author: this.commentForm.get('author').value,  
-        comment: this.commentForm.get('comment').value ,
-        rating: this.commentForm.get('rating').value,
-        date: date.toISOString()
-      }
-    );
+    const new_comment={
+      author: this.commentForm.get('author').value,  
+      comment: this.commentForm.get('comment').value ,
+      rating: this.commentForm.get('rating').value,
+      date: date.toISOString()
+    }
+  
+    /*this.dish.comments.push(new_comment);*/
+    this.dishcopy.comments.push(new_comment);
+    this.dishservice.putDish(this.dishcopy)
+      .subscribe(dish => {
+        this.dish = dish; this.dishcopy = dish;
+      });
     this.commentForm.reset({
       author: '',
       comment: '',

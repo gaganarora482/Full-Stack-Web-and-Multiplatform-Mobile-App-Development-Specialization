@@ -79,7 +79,7 @@
 
   </div>
 
-  <div [hidden]="dish | errMess">
+  <div [hidden]="dish || errMess">
     <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
   
 </div>
