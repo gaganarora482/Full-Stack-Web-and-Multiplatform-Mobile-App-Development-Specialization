@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild,Inject} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Feedback, ContactType } from '../shared/feedback';
 import { flyInOut,expand } from '../animations/app.animation';
-
+import { FeedbackService} from '../services/feedback.service'
 
 @Component({
   selector: 'app-contact',
@@ -21,7 +21,9 @@ export class ContactComponent implements OnInit {
 
   feedbackForm: FormGroup;
   feedback: Feedback;
+  submittedfeedback: Feedback;
   contactType = ContactType;
+  spinner = null;
 
   formErrors = {
     'firstname': '',
@@ -54,7 +56,9 @@ export class ContactComponent implements OnInit {
 
   @ViewChild('fform') feedbackFormDirective;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+    private feedbackservice: FeedbackService,
+    @Inject('BaseURL') private BaseURL) {
     this.createForm();
    }
 
@@ -99,8 +103,27 @@ export class ContactComponent implements OnInit {
   }
 
   onSubmit() {
+  
+    this.spinner = true;
+
     this.feedback = this.feedbackForm.value;
     console.log(this.feedback);
+    
+    this.feedbackservice.putfeedback(this.feedback)
+      .subscribe(feedback => {
+        this.feedback = feedback;
+        /*spinner...*/
+        this.spinner = null;
+        this.submittedfeedback=feedback;
+        setTimeout(() => this.submittedfeedback = null, 5000); 
+        this.submittedfeedback=feedback;
+      });
+
+      
+      /*hide the form till we get response fron server and display spinner*/
+      /*display feedback for 5 sec*/
+      /*hide feedback after 5 sec and display back the empty form*/
+   
     this.feedbackForm.reset({
       firstname: '',
       lastname: '',
